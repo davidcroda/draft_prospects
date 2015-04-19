@@ -1,0 +1,20 @@
+{% load staticfiles %}
+<script type="text/javascript" src="{% static "vendors/marked/marked.min.js" %}"></script>
+<script type="text/javascript" src="{% static "vendors/jquery-highlight/jquery.highlight.js" %}"></script>
+<script type="text/javascript">
+$(function() {
+    var athlete = '{{ entity.athlete.name }}';
+    if (athlete != '') {
+        var content = $('.markdown-content');
+        content.html(marked($('#plain_text').val()));
+        content.highlight([athlete, athlete.split(" ")[1]]);
+    }
+});
+</script>
+
+<article>
+    <h1>{{ entity.title }}</h1>
+    <input type="hidden" id="plain_text" value="{{ entity.plain_text }}" />
+    <div class="markdown-content"></div>
+    <script></script>
+</article>

@@ -1,5 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
+
 from website.scraper import ProspectScraper
+
 
 class Command(BaseCommand):
 

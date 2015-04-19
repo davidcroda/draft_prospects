@@ -1,4 +1,7 @@
+from datetime import datetime
+import hashlib
 from django.db import models
+
 
 class Athlete(models.Model):
 
@@ -14,26 +17,54 @@ class Athlete(models.Model):
     weight = models.IntegerField()
     draft_express_rank = models.IntegerField()
 
-class Video(models.Model):
+
+class Entity(models.Model):
+    """
+    I really wanted to do this with Single Table Inheritance, but it doesn't
+    seem possible in Django. So I had to hack this together. I am sure with more
+    time and/or python / django experience this could be done with inheritance
+    """
+
+    title = models.CharField(max_length=255)
+    url = models.TextField()
+    date = models.DateTimeField(default=datetime.now)
+    relevance = models.IntegerField(default=0)
+    athlete = models.ForeignKey(Athlete)
+    hash = models.CharField(max_length=64)
+
+    ARTICLE = 'AR'
+    VIDEO = 'VI'
+    QUOTE = 'QU'
+
+    TYPE_CHOICES = (
+        (ARTICLE, 'Article'),
+        (VIDEO, 'Video'),
+        (QUOTE, 'quote'),
+    )
+
+    type = models.CharField(max_length=2, choices=TYPE_CHOICES, default=ARTICLE)
+
+    #Article
+    content = models.TextField()
+    plain_text = models.TextField()
+    modified = models.DateField(auto_now=True)
+
+    #Video
+    embed = models.CharField(max_length=500)
+
+    #Quote
+    from_name = models.CharField(max_length=255)
 
     def __unicode__(self):
         return self.title
 
-    title = models.CharField(max_length=255)
-    url = models.CharField(max_length=500)
-    athlete = models.ForeignKey(Athlete)
+    def get_hash(self):
+        digest = hashlib.md5()
 
-class Article(models.Model):
+        if self.type in ['article', 'quote']:
+            digest.update(self.plain_text)
+        else:
+            digest.update(self.url)
 
-    def __unicode__(self):
-        return self.link_text
-
-    title = models.CharField(max_length=255)
-    link_text = models.CharField(max_length=255)
-    url = models.CharField(max_length=500)
-    content = models.TextField()
-    summary = models.TextField()
-    plain_text = models.TextField()
-    relevance = models.IntegerField()
-    athlete = models.ForeignKey(Athlete)
-    hash = models.CharField(max_length=64)
+        self.hash = digest.hexdigest()
+        return self.hash

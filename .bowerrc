@@ -1,4 +1,4 @@
 {
-  "directory": "website/static/",
+  "directory": "website/static/vendors",
   "analytics": false
 }

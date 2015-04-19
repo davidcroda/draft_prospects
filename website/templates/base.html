@@ -1,21 +1,56 @@
-<html>
+<html class="no-js" lang="en" >
 <head>
 
+    <meta charset="utf-8">
+    <!-- If you delete this meta tag World War Z will become a reality -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>{% block title %}Draft Prospects{% endblock %}</title>
+
+    {% load staticfiles %}
+
+    <script type="text/javascript" src="{% static "vendors/jquery/dist/jquery.js" %}"></script>
+{#    <link rel="stylesheet" href="{% static "vendors/bootstrap/dist/css/bootstrap.css" %}" />#}
+{#    <script type="text/javascript" src="{% static "vendors/bootstrap/dist/js/bootstrap.js" %}"></script>#}
+
+{#    <link href="{% static "vendors/toolkit/dist/toolkit.min.css" %}" rel="stylesheet">#}
+{#    <script src="{% static "vendors/toolkit/dist/toolkit.min.js" %}"></script>#}
+
+    <link href="{% static "vendors/foundation/css/normalize.css" %}" rel="stylesheet">
+    <link href="{% static "vendors/foundation/css/foundation.css" %}" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static "vendors/font-awesome/css/font-awesome.css" %}">
+
+    <link href="{% static "styles.css" %}" rel="stylesheet">
+
+
+    <script src="{% static "vendors/foundation/js/vendor/modernizr.js" %}"></script>
 
     {% block js %}
     {% endblock %}
     {% block css %}
     {% endblock %}
 
-    {% load staticfiles %}
-    <link rel="stylesheet" href="{% static "vendors/bootstrap/dist/css/bootstrap.css" %}" />
-    <script type="text/javascript" src="{% static "vendors/jquery/dist/jquery.js" %}"></script>
-    <script type="text/javascript" src="{% static "vendors/bootstrap/dist/js/bootstrap.js" %}"></script>
-
 </head>
 <body>
-    {% block content %}
-    {% endblock %}
+    <div class="container">
+        {% block nav %}
+            <div class="row">
+                <div class="small-12 column">
+                    <ul class="breadcrumbs">
+                        <li class="current"><a href="{% url 'index' %}">Home</a></li>
+                    </ul>
+                </div>
+            </div>
+        {% endblock %}
+        {% block content %}
+        {% endblock %}
+    </div>
+    <div id="modal" class="reveal-modal" data-reveal aria-hidden="true" role="dialog"></div>
+    <script src="{% static "vendors/foundation/js/vendor/jquery.js" %}"></script>
+    <script src="{% static "vendors/foundation/js/foundation.js" %}"></script>
+    <script>
+        $(document).foundation();
+    </script>
 </body>
 </html>

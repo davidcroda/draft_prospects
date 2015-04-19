@@ -1,46 +1,59 @@
 {% extends "base.html" %}
 
 {% block content %}
-<table class="table table-striped">
-<thead>
-<tr>
-    <th>Title</th>
-    <th>Player</th>
-</tr>
-</thead>
-<tbody>
-{% for article in articles %}
-    <tr>
-        <td><a href="{{ article.url }}" target="_blank">{{ article.title }}</a></td>
-        <td>{{ article.athlete.name }} <span class="badge">{{ article.relevance }}</span></td>
-    </tr>
-{% endfor %}
-</tbody>
-</table>
+<div class="row">
+    <div class="small-12 column">
 
-<nav>
-<ul class="pagination">
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th></th>
+            <th>Name</th>
+            <th>School</th>
+            <th>Year</th>
+            <th>Height</th>
+            <th>Weight</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for athlete in athletes %}
+            <tr>
+                <td>{{ athlete.draft_express_rank }}</td>
+                <td>
+                    <a href="{% url 'view-entities' athlete.id %}">{{ athlete.name }}</a>
+                </td>
+                <td>{{ athlete.school }}</td>
+                <td>{{ athlete.year }}</td>
+                <td>{{ athlete.height }}</td>
+                <td>{{ athlete.weight }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
 
+        <nav>
+            <ul class="pagination">
+                <li class="{% if not articles.has_previous %}disabled{% endif %}">
+                    <a href="{% if articles.has_previous %}?page={{ articles.previous_page_number }}{% else %}#{% endif %}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
 
-<li class="{% if not articles.has_previous %}disabled{% endif %}">
-    <a href="{% if articles.has_previous %}?page={{ articles.previous_page_number }}{% else %}#{% endif %}" aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-    </a>
-</li>
+                {% for page in page_range %}
+                    <li class="{% if articles.number == page %}active{% endif %}">
+                        <a href="?page={{ page }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
 
-{% for page in page_range %}
-    <li class="{% if articles.number == page %}active{% endif %}">
-        <a href="?page={{ page }}">{{ page }} <span class="sr-only">(current)</span></a>
-    </li>
-{% endfor %}
-
-{% if articles.has_next %}
-    <li>
-        <a href="?page={{ articles.next_page_number }}" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-        </a>
-    </li>
-{% endif %}
-</ul>
-</nav>
+                {% if articles.has_next %}
+                    <li>
+                        <a href="?page={{ articles.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
 {% endblock %}

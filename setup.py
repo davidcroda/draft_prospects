@@ -11,10 +11,12 @@ setup(name='DraftProspects',
       packages=find_packages(),
       install_requires=[
           'django',
+          'django-model-utils',
           'html2text',
           'scrapy',
           'beautifulsoup4',
-          'requests'
+          'requests',
+          'parsedatetime',
       ]
 
 )

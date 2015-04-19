@@ -11,9 +11,8 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='athlete',
-            name='age',
-            field=models.FloatField(),
+        migrations.RemoveField(
+            model_name='entity',
+            name='created',
         ),
     ]

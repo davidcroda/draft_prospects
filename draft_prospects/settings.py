@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'draft_prospects.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'draft_prospects',
         'USER': 'draft_prospects',
-        'PASSWORD': 'uV/CBkSFNBV4E+u2KjTyS3yY+l/omALc'
+        'PASSWORD': ''
     }
 }
 
@@ -90,13 +90,13 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'EST'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

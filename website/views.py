@@ -1,6 +1,9 @@
-from django.shortcuts import render
+import pprint
+
+from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from website.models import Athlete, Article
+
+from website.models import Athlete, Entity
 
 
 def index(request):
@@ -10,17 +13,42 @@ def index(request):
         filters['athlete_id'] = request.GET['athlete_id']
 
     if len(filters) > 0:
-        articles = Article.objects.filter(filters)
+        athletes = Athlete.objects.filter(filters)
     else:
-        articles = Article.objects.all()
-    paginator = Paginator(articles, 100)
+        athletes = Athlete.objects.all()
+    paginator = Paginator(athletes, 25)
     page = request.GET.get('page', 1)
 
     try:
-        articles = paginator.page(page)
+        athletes = paginator.page(page)
     except PageNotAnInteger:
-        articles = paginator.page(1)
+        athletes = paginator.page(1)
     except EmptyPage:
-        articles = paginator.page(paginator.num_pages)
+        athletes = paginator.page(paginator.num_pages)
 
-    return render(request, 'index.html', {'articles': articles, 'page_range': paginator.page_range})
+    return render(request, 'index.html', {'athletes': athletes, 'page_range': paginator.page_range})
+
+
+def view_entities(request, athlete_id):
+
+    athlete = get_object_or_404(Athlete, id=athlete_id)
+
+    filters = {
+        'athlete_id': athlete_id
+    }
+
+    if request.GET.has_key('type'):
+        filters['type'] = request.GET.get('type')
+
+    pprint.pprint(filters)
+
+    entities = Entity.objects.filter(**filters).order_by('-date', '-relevance')
+
+    return render(request, 'entities.html', {'athlete': athlete, 'entities': entities})
+
+
+def view_entity(request, entity_id):
+    entity = get_object_or_404(Entity, id=entity_id)
+    # entity.embed = entity.embed.replace(".html", ".js")
+    template = "entities/%s.html" % entity.type
+    return render(request,template, {'entity': entity})

@@ -1,8 +1,13 @@
+import re
+import logging
+
 from bs4 import BeautifulSoup
-import requests, re, logging
-from models import Athlete
+import requests
 import django
 from django.core.exceptions import ObjectDoesNotExist
+
+from models import Athlete
+
 
 class ProspectScraper:
 
