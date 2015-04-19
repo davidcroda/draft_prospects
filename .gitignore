@@ -1,0 +1,4 @@
+.idea
+venv
+website/static/vendors
+*.pyc

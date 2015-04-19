@@ -1,0 +1,21 @@
+<html>
+<head>
+
+    <title>{% block title %}Draft Prospects{% endblock %}</title>
+
+    {% block js %}
+    {% endblock %}
+    {% block css %}
+    {% endblock %}
+
+    {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "vendors/bootstrap/dist/css/bootstrap.css" %}" />
+    <script type="text/javascript" src="{% static "vendors/jquery/dist/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "vendors/bootstrap/dist/js/bootstrap.js" %}"></script>
+
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
