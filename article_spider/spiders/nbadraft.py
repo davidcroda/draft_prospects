@@ -5,7 +5,7 @@ import html2text
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.lxmlhtml import LxmlLinkExtractor
 import re
-from site.models import Article, Athlete
+from website.models import Article, Athlete
 from scrapy.shell import inspect_response
 import hashlib
 

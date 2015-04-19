@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from site.models import Athlete
-from site.scraper import ProspectScraper
+from website.scraper import ProspectScraper
 
 class Command(BaseCommand):
 
