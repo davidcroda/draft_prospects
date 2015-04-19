@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup, find_packages
 
 setup(name='DraftProspects',
       version='0.1',
@@ -8,11 +8,13 @@ setup(name='DraftProspects',
       author='Dave Roda',
       author_email='davidcroda@gmail.com',
       url='https://bitbucket.org/davidcroda/draft_prospects',
-      packages=['draft_prospects','article_spider','website'],
+      packages=find_packages(),
       install_requires=[
           'django',
           'html2text',
           'scrapy',
           'beautifulsoup4',
           'requests'
-      ])
+      ]
+
+)
