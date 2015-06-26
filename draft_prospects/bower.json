@@ -1,0 +1,23 @@
+{
+  "name": "draft_prospects",
+  "version": "0.0.0",
+  "authors": [
+    "David Roda <davidcroda@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "website/static/vendors",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery-highlight": "~3.2.2",
+    "font-awesome": "~4.3.0",
+    "foundation": "~5.5.1",
+    "markdown-js": "~0.6.2",
+    "marked": "~0.3.3"
+  }
+}

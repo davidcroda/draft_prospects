@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block js %}
+<script type="text/javascript">
+$(function() {
+    $(document).on('closed.fndtn.reveal', '[data-reveal]', function () {
+        var modal = $(this),
+            media = modal.find('video, media, embed, iframe');
+
+        //Stop videos which are still playing
+        media.remove();
+    });
+});
+</script>
+{% endblock %}
+
+{% block nav %}
+    <div class="row">
+        <div class="small-12 column">
+            <ul class="breadcrumbs">
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li class="current"><a href="javascript:void(0)">{{ athlete.name }}</a></li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="small-10 column">
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Relevance</th>
+            <th>Type</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td>
+                    <a class='view-entity'
+                       href="{% url 'view-entity' entity.id %}"
+                       data-reveal-id="modal"
+                       data-reveal-ajax="true">{{ entity.title }}</a>
+                    <a href="{{ entity.url }}" target="_blank"><i class="fa fa-external-link"></i></a>
+                </td>
+                <td><span class="badge">{{ entity.relevance }}</span></td>
+                <td>{{ entity.get_type_display }}</td>
+                <td>{{ entity.date }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
