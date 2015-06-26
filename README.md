@@ -4,8 +4,9 @@ Project to automatically scrape and parse information about the top 100 nba draf
 
 ### Setup ###
 * `$ virtualenv new venv`
+* `$ source venv/bin/activate`
 * `$ python setup.py install`
-* update database info in draft_prospects/settings.py
+* update draft_prospects/settings.py
 * `$ ./manage.py scrape_prospects` - imports the top 100 prospect names to seed the database
 
 ### Crawlers ###
